@@ -3,116 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ゲーム開発者・松浦のポートフォリオサイト">
-  <meta name="theme-color" content="#10100f">
-  <title>Matsuura — Game Developer</title>
-  <link rel="icon" href="assets/favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="HAL東京でゲーム制作を学ぶ専門学生のポートフォリオ。自己紹介と制作作品をご紹介します。">
+  <title>Portfolio | HAL東京・ゲーム制作</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/data.js" defer></script>
+  <script src="js/scripts.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="ページの先頭へ">M<span>.</span></a>
+  <a class="skip-link" href="#main">本文へ移動</a>
+  <header class="site-header container">
+    <a class="brand" href="index.html">Portfolio</a>
     <nav aria-label="メインナビゲーション">
-      <a href="#about">About</a>
-      <a href="#works">Works</a>
-      <a href="#contact">Contact</a>
+      <a href="#about">About me</a><a href="#works">Works</a><a href="#contact">Contact</a>
     </nav>
   </header>
-
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <p class="eyebrow"><span></span> GAME DEVELOPER / ENGINEER</p>
-        <h1 id="hero-title">遊びの感触を、<br><em>コード</em>でつくる。</h1>
-        <p class="hero-lead">Unity・Unreal Engine・DirectXを使い、アイデアが「触れて楽しい」に変わるまでを丁寧につくっています。</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#works">作品を見る <span aria-hidden="true">↘</span></a>
-          <a class="text-link" href="#about">自己紹介 <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="visual-frame">
-          <img src="assets/img/bg-masthead.jpg" alt="">
-          <span class="frame-index">01 / 06</span>
-        </div>
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-        <p>CREATING<br>INTERACTIVE<br>EXPERIENCES</p>
-      </div>
-      <a class="scroll-cue" href="#about"><span>SCROLL</span><i></i></a>
+  <main id="main" class="container">
+    <section class="intro" aria-labelledby="intro-title">
+      <p class="eyebrow">GAME DEVELOPMENT PORTFOLIO</p>
+      <!-- 氏名はここを書き換えてください。 -->
+      <h1 id="intro-title">氏名を入力</h1>
+      <p>HAL東京でゲーム制作を学んでいる専門学生です。</p>
     </section>
-
-    <section class="about section" id="about" aria-labelledby="about-title">
-      <div class="section-label"><span>01</span> ABOUT</div>
-      <div class="about-grid">
-        <div>
-          <p class="kicker">HELLO, I’M MATSUURA.</p>
-          <h2 id="about-title">ゲームをつくることが<br>好きなエンジニアです。</h2>
-        </div>
-        <div class="about-copy">
-          <p>個人制作を中心に、ゲームの企画・プログラミング・レベルデザインに取り組んでいます。思わず何度も触りたくなる操作感と、遊びが自然に伝わる設計を大切にしています。</p>
-          <p>現在は Unity、Unreal Engine、DirectX 11 を使った開発を行っています。新しい表現や技術も、実際に手を動かしながら学んでいます。</p>
-          <dl class="profile-facts">
-            <div><dt>Focus</dt><dd>Game Programming</dd></div>
-            <div><dt>Tools</dt><dd>Unity / UE / DirectX</dd></div>
-            <div><dt>Based in</dt><dd>Japan</dd></div>
-          </dl>
-        </div>
-      </div>
+    <section class="section" id="about" aria-labelledby="about-title">
+      <h2 id="about-title">About me <span>自己紹介</span></h2>
+      <p>自己紹介を入力してください。ゲーム制作を始めたきっかけや、学んでいることなどを紹介します。</p>
+      <dl class="facts">
+        <div><dt>学校</dt><dd>HAL東京</dd></div>
+        <div><dt>学科・学年</dt><dd>学科・学年を入力</dd></div>
+        <div><dt>使用言語・ツール</dt><dd>使用言語・ツールを入力</dd></div>
+        <div><dt>興味のある分野</dt><dd>興味のある分野を入力</dd></div>
+      </dl>
     </section>
-
-    <section class="works section" id="works" aria-labelledby="works-title">
-      <div class="works-heading">
-        <div>
-          <div class="section-label"><span>02</span> SELECTED WORKS</div>
-          <h2 id="works-title">つくったもの</h2>
-        </div>
-        <p>作品を選ぶと、開発情報や画像、プレイ動画をご覧いただけます。</p>
-      </div>
+    <section class="section" id="works" aria-labelledby="works-title">
+      <h2 id="works-title">Works <span>作品一覧</span></h2>
+      <p class="section-note">作品を選ぶと、制作内容や担当したことをご覧いただけます。</p>
       <div class="works-grid" id="worksGrid"></div>
+      <noscript><p>作品一覧を表示するにはJavaScriptを有効にしてください。</p></noscript>
     </section>
-
-    <section class="contact section" id="contact" aria-labelledby="contact-title">
-      <div class="section-label"><span>03</span> CONTACT</div>
-      <div class="contact-inner">
-        <div>
-          <p class="kicker">LET’S MAKE SOMETHING.</p>
-          <h2 id="contact-title">お気軽に<br>ご連絡ください。</h2>
-        </div>
-        <div class="contact-copy">
-          <p>作品についてのご質問や制作のお誘いなど、メールよりお待ちしています。</p>
-          <a class="mail-link" href="mailto:your-email@example.com">your-email@example.com <span>↗</span></a>
-        </div>
-      </div>
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact <span>連絡先</span></h2>
+      <p>作品についてのご質問やご連絡は、メールでお願いします。</p>
+      <div id="contactDetails"><p class="muted">メールアドレス準備中</p></div>
     </section>
   </main>
-
-  <footer>
-    <a class="brand" href="#top">M<span>.</span></a>
-    <p>© <span id="year"></span> MATSUURA</p>
-    <a href="#top">BACK TO TOP ↑</a>
-  </footer>
-
-  <dialog class="work-dialog" id="workDialog" aria-labelledby="dialogTitle">
-    <button class="dialog-close" type="button" aria-label="詳細を閉じる">×</button>
-    <div class="dialog-layout">
-      <div class="gallery">
-        <div class="gallery-main"><img id="dialogImage" src="" alt=""></div>
-        <div class="gallery-thumbs" id="dialogThumbs" aria-label="作品画像を選択"></div>
-      </div>
-      <article class="dialog-content">
-        <p class="dialog-category" id="dialogCategory"></p>
-        <h2 id="dialogTitle"></h2>
-        <p class="dialog-description" id="dialogDescription"></p>
-        <dl class="dialog-meta" id="dialogMeta"></dl>
-        <div class="dialog-links" id="dialogLinks"></div>
-      </article>
-    </div>
-  </dialog>
-
-  <script src="js/scripts.js"></script>
+  <footer class="container site-footer"><small>HAL東京 / Game development portfolio</small></footer>
 </body>
 </html>
