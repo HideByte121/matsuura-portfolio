@@ -1,5 +1,5 @@
 // 公開用のメールアドレスを入力してください。空欄ではリンクを表示しません。
-const portfolio = { email: '' };
+const portfolio = { email: 'matsuura.hideyuki1111001@gmail.com' };
 
 // id は作品URLに使います。公開後は変更しないでください。
 // 画像のパスはHTMLファイルからの相対パスです。
