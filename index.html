@@ -26,12 +26,13 @@
     </section>
     <section class="section" id="about" aria-labelledby="about-title">
       <h2 id="about-title">About me <span>自己紹介</span></h2>
-      <p>自己紹介を入力してください。ゲーム制作を始めたきっかけや、学んでいることなどを紹介します。</p>
+      <p>HAL東京でゲーム制作を学んでいます。シェーダーの制作に興味があり、ゲームの見た目をつくる表現について学んでいきたいと考えています。</p>
       <dl class="facts">
         <div><dt>学校</dt><dd>HAL東京</dd></div>
         <div><dt>学科・学年</dt><dd>学科・学年を入力</dd></div>
-        <div><dt>使用言語・ツール</dt><dd>使用言語・ツールを入力</dd></div>
-        <div><dt>興味のある分野</dt><dd>興味のある分野を入力</dd></div>
+        <div><dt>使用言語</dt><dd class="skill-tags"><span>C</span><span>C++</span></dd></div>
+        <div><dt>使用ツール</dt><dd class="skill-tags"><span>Maya</span><span>Unity</span><span>Unreal Engine</span></dd></div>
+        <div><dt>興味のある分野</dt><dd>シェーダー制作</dd></div>
       </dl>
     </section>
     <section class="section" id="works" aria-labelledby="works-title">
@@ -46,6 +47,10 @@
       <div id="contactDetails"><p class="muted">メールアドレス準備中</p></div>
     </section>
   </main>
+  <dialog id="workDialog" class="work-dialog" aria-labelledby="dialogTitle">
+    <div class="dialog-toolbar"><button type="button" class="dialog-close" autofocus>閉じる <span aria-hidden="true">×</span></button></div>
+    <article id="dialogContent" class="dialog-content"></article>
+  </dialog>
   <footer class="container site-footer"><small>HAL東京 / Game development portfolio</small></footer>
 </body>
 </html>
