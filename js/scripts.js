@@ -104,7 +104,7 @@ function renderWork(detail, work) {
         const pre = element('pre', 'source-code');
         pre.tabIndex = 0;
         pre.setAttribute('aria-label', snippet.source + 'のコード抜粋');
-        pre.append(element('code', 'language-cpp', snippet.code));
+        pre.append(element('code', 'language-' + (snippet.language || 'cpp'), snippet.code));
         disclosure.append(pre);
       });
       section.append(disclosure);

@@ -31,7 +31,7 @@ const portfolio = { email: '自分のメールアドレス' };
 | `description` | ゲーム概要・遊び方・制作目的 |
 | `period` / `teamSize` / `role` | 制作期間 / 制作人数 / 自分の担当 |
 | `highlights` | 工夫した点・課題と解決方法 |
-| `technicalNotes` | 任意の技術解説。各項目は `title`, `problem`, `approach`, `point`, `snippets`。抜粋は `source` と `code` |
+| `technicalNotes` | 任意の技術解説。各項目は `title`, `problem`, `approach`, `point`, `snippets`。抜粋は `source` と `code`、任意の `language`（`cpp` / `csharp` / `hlsl`） |
 | `links` | 動画やGitHubのリンク。不要なら `[]` |
 
 一覧の作品を選ぶと `work.html?id=my-game` のような作品専用ページへ移動します。上部・下部の「作品一覧に戻る」で一覧へ戻れます。概要・工夫した点の文章では `\n` で改行できます。文字列内のシングルクォートは `\'` と記述してください。
@@ -57,7 +57,7 @@ links: [
 
 - PCとスマートフォンでトップページを開き、作品一覧が2列・1列になることを確認。
 - 3件の作品が対応する詳細ページへ移動することを確認。
-- 5GameBowlingの技術解説とコード抜粋を確認。コードの開閉とキーボード操作、スマートフォンでの横スクロールを確認。
+- 5GameBowling・RE：TRACEの技術解説とコード抜粋を確認。コードの開閉とキーボード操作、スマートフォンでの横スクロールを確認。
 - 詳細URLへの直接アクセス・再読み込み・一覧への復帰を確認。
 - `work.html` と `work.html?id=unknown` で見つからない旨が表示されることを確認。
 - 画像やリンクが空でも表示できること、実際に設定した画像・リンクが利用できることを確認。
