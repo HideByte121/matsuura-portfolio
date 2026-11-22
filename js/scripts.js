@@ -39,6 +39,24 @@ function videoBlock(work, id) {
   return block;
 }
 
+function nativeVideoBlock(src, poster, title) {
+  const block = element('div', 'native-video');
+  const video = element('video');
+  video.src = src;
+  video.controls = true;
+  video.playsInline = true;
+  video.preload = 'metadata';
+  if (poster) video.poster = poster;
+  video.setAttribute('aria-label', title);
+  const fallback = element('a', 'video-fallback', 'MP4を開く ↗');
+  fallback.href = src;
+  fallback.target = '_blank';
+  fallback.rel = 'noopener';
+  fallback.setAttribute('aria-label', title + 'をMP4で開く（新しいタブ）');
+  block.append(video, fallback);
+  return block;
+}
+
 const grid = document.querySelector('#worksGrid');
 if (grid) {
   works.forEach(work => {
@@ -59,7 +77,9 @@ function renderWork(detail, work) {
   detail.append(title, element('p', 'detail-summary', work.summary));
   const gallery = element('div', 'work-gallery');
   const id = youtubeId(work);
-  if (id) {
+  if (work.videoSrc) {
+    gallery.append(nativeVideoBlock(work.videoSrc, work.thumbnail, work.title + 'のPV'));
+  } else if (id) {
     gallery.append(videoBlock(work, id));
     const fallback = element('a', 'video-fallback', 'YouTubeで見る ↗');
     fallback.href = `https://www.youtube.com/watch?v=${id}`;
@@ -69,13 +89,14 @@ function renderWork(detail, work) {
     gallery.append(fallback);
   }
   const images = (work.images || []).filter(src => typeof src === 'string' && src.trim());
-  if (!images.length && !id) images.push(work.thumbnail || '');
+  if (!images.length && !work.videoSrc && !id) images.push(work.thumbnail || '');
   images.forEach((src, index) => gallery.append(imageBlock(src, `${work.title}の画像 ${index + 1}`, 'detail-image')));
   detail.append(gallery);
   const overview = element('section', 'detail-section');
   overview.append(element('h2', '', '概要'), element('p', 'prose', work.description));
   const facts = element('dl', 'facts');
   [['制作期間', work.period], ['制作人数', work.teamSize], ['担当', work.role], ['使用技術', work.tools]].forEach(([label, value]) => {
+    if (!value) return;
     const row = element('div');
     row.append(element('dt', '', label), element('dd', '', value));
     facts.append(row);
@@ -97,20 +118,40 @@ function renderWork(detail, work) {
         explanation.append(row);
       });
       section.append(explanation);
-      const disclosure = element('details', 'code-disclosure');
-      disclosure.append(element('summary', '', '関連するコードを見る'));
-      note.snippets.forEach(snippet => {
-        disclosure.append(element('p', 'source-caption', snippet.source));
-        const pre = element('pre', 'source-code');
-        pre.tabIndex = 0;
-        pre.setAttribute('aria-label', snippet.source + 'のコード抜粋');
-        pre.append(element('code', 'language-' + (snippet.language || 'cpp'), snippet.code));
-        disclosure.append(pre);
-      });
-      section.append(disclosure);
+      if (note.snippets?.length) {
+        const disclosure = element('details', 'code-disclosure');
+        disclosure.append(element('summary', '', '関連するコードを見る'));
+        note.snippets.forEach(snippet => {
+          disclosure.append(element('p', 'source-caption', snippet.source));
+          const pre = element('pre', 'source-code');
+          pre.tabIndex = 0;
+          pre.setAttribute('aria-label', snippet.source + 'のコード抜粋');
+          pre.append(element('code', 'language-' + (snippet.language || 'cpp'), snippet.code));
+          disclosure.append(pre);
+        });
+        section.append(disclosure);
+      }
       technical.append(section);
     });
     detail.append(technical);
+  }
+  const attacks = (work.bossAttacks || []).filter(attack =>
+    attack.title?.trim() && attack.description?.trim() && (attack.image?.trim() || attack.videoSrc?.trim())
+  );
+  if (attacks.length) {
+    const section = element('section', 'detail-section');
+    section.append(element('h2', '', 'ボスの攻撃'));
+    attacks.forEach(attack => {
+      const entry = element('section', 'technical-note');
+      entry.append(element('h3', '', attack.title), element('p', '', attack.description));
+      if (attack.videoSrc?.trim()) {
+        entry.append(nativeVideoBlock(attack.videoSrc, attack.image, attack.title + 'の動画'));
+      } else {
+        entry.append(imageBlock(attack.image, attack.title + 'の画像', 'detail-image'));
+      }
+      section.append(entry);
+    });
+    detail.append(section);
   }
   const links = element('div', 'work-links');
   (work.links || []).forEach(link => {

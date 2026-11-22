@@ -18,25 +18,40 @@ const portfolio = { email: '自分のメールアドレス' };
 
 ## 作品の追加・編集
 
-`js/data.js` の `works` 配列を編集します。現在は5GameBowling、RE：TRACE、暖弾Doneの3件を掲載しています。使わない項目は作品ごと削除でき、追加する場合は1件をコピーして一意の `id` を付けてください。
+`js/data.js` の `works` 配列を編集します。現在は5GameBowling、RE：TRACE、暖弾Done、PRIMARYを掲載しています。使わない項目は作品ごと削除でき、追加する場合は1件をコピーして一意の `id` を付けてください。
 
 | 項目 | 内容 |
 | --- | --- |
 | `id` | URLで使用する固定ID。例：`my-game`。半角英数字とハイフンを使い、重複させないでください。公開後は変更しないでください。 |
 | `title` / `summary` | 作品名 / 一覧にも表示する短い説明 |
 | `tools` | 使用言語・ツール・技術 |
-| `youtubeId` | YouTube動画の11文字のID。例：`YBtmxOndqW8`。空欄では画像を表示 |
-| `thumbnail` | 一覧画像のパス。空欄の場合はYouTubeのサムネイルを使用 |
+| `youtubeId` | YouTube動画の11文字のID。例：`YBtmxOndqW8` |
+| `videoSrc` | サイト内で再生するMP4の相対パス。指定した場合はこの動画を表示 |
+| `thumbnail` | 一覧画像とMP4の再生前画像。空欄の場合はYouTubeのサムネイルを使用 |
 | `images` | 詳細画像のパスの配列。指定した順で縦に表示 |
 | `description` | ゲーム概要・遊び方・制作目的 |
 | `period` / `teamSize` / `role` | 制作期間 / 制作人数 / 自分の担当 |
 | `highlights` | 工夫した点・課題と解決方法 |
-| `technicalNotes` | 任意の技術解説。各項目は `title`, `problem`, `approach`, `point`, `snippets`。抜粋は `source` と `code`、任意の `language`（`cpp` / `csharp` / `hlsl`） |
+| `technicalNotes` | 任意の技術解説。各項目は `title`, `problem`, `approach`, `point`。任意の `snippets` には `source` と `code`、任意の `language`（`cpp` / `csharp` / `hlsl`）を指定 |
+| `bossAttacks` | 任意の攻撃紹介。各項目に `title`、`description` と `image` または `videoSrc` を指定 |
 | `links` | 動画やGitHubのリンク。不要なら `[]` |
 
 一覧の作品を選ぶと `work.html?id=my-game` のような作品専用ページへ移動します。上部・下部の「作品一覧に戻る」で一覧へ戻れます。概要・工夫した点の文章では `\n` で改行できます。文字列内のシングルクォートは `\'` と記述してください。
 
-動画は詳細内のYouTubeプレイヤーで再生できます。自動再生は行わず、詳細ページから移動するとプレイヤーも終了します。動画に画像を添えたい場合は `images` に追加します。再生できない場合は「YouTubeで見る」リンクを使用できます。ローカル確認にはHTTPの静的Webサーバーを使用してください。`file://` で開くとYouTubeが再生を拒否する場合があります。デザインと改修方針は `DESIGN.md` にまとめています。
+動画は詳細内で再生できます。自動再生は行わず、詳細ページから移動するとプレイヤーも終了します。動画に画像を添えたい場合は `images` に追加します。再生できない場合は「YouTubeで見る」または「MP4を開く」を使えます。ローカル確認にはHTTPの静的Webサーバーを使用してください。`file://` で開くとYouTubeが再生を拒否する場合があります。デザインと改修方針は `DESIGN.md` にまとめています。
+
+PRIMARYの攻撃素材がそろったら、`assets/primary/` に画像やMP4を配置し、PRIMARYの `bossAttacks` に以下の形式で1件ずつ追加します。動画と画像を両方指定すると、画像は再生前に表示されます。項目が空の間は攻撃欄を表示しません。
+
+```js
+bossAttacks: [
+  {
+    title: '攻撃の名前',
+    description: 'どんな攻撃か、工夫した点など',
+    videoSrc: 'assets/primary/attack-01.mp4',
+    image: 'assets/primary/attack-01.jpg'
+  }
+]
+```
 
 ### 画像・外部リンクの設定例
 
@@ -56,7 +71,8 @@ links: [
 ## 確認手順
 
 - PCとスマートフォンでトップページを開き、作品一覧が2列・1列になることを確認。
-- 3件の作品が対応する詳細ページへ移動することを確認。
+- 各作品が対応する詳細ページへ移動することを確認。
+- PRIMARYのPVが再生・一時停止・シークでき、MP4へのリンクも機能することを確認。
 - 5GameBowling・RE：TRACEの技術解説とコード抜粋を確認。コードの開閉とキーボード操作、スマートフォンでの横スクロールを確認。
 - 詳細URLへの直接アクセス・再読み込み・一覧への復帰を確認。
 - `work.html` と `work.html?id=unknown` で見つからない旨が表示されることを確認。
