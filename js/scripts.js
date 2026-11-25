@@ -78,7 +78,9 @@ function renderWork(detail, work) {
   const gallery = element('div', 'work-gallery');
   const id = youtubeId(work);
   if (work.videoSrc) {
-    gallery.append(nativeVideoBlock(work.videoSrc, work.thumbnail, work.title + 'のPV'));
+    const video = nativeVideoBlock(work.videoSrc, work.thumbnail, work.title + 'の' + (work.videoLabel || 'PV'));
+    if (work.videoLabel) video.prepend(element('h2', '', work.videoLabel));
+    gallery.append(video);
   } else if (id) {
     gallery.append(videoBlock(work, id));
     const fallback = element('a', 'video-fallback', 'YouTubeで見る ↗');

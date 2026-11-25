@@ -232,5 +232,60 @@ const works = [
       }
     ],
     bossAttacks: []
+  },
+  {
+    id: "falling-puzzle",
+    title: "落ち物パズルゲーム",
+    summary: "3個組のピースを入れ替え、縦・横・斜めに同じ種類をそろえて消すパズルゲーム。盤面を構造体の二次元配列で管理しました。",
+    tools: "C++ / DirectX 11",
+    videoSrc: "assets/falling-puzzle/play.mp4",
+    videoLabel: "プレイ動画",
+    thumbnail: "assets/falling-puzzle/cover.jpg",
+    description: "縦に並んだ3個組のピースの順番を入れ替えながら落とし、同じ種類のブロックを縦・横・斜めに3個以上そろえて消すゲームです。消去後に上のブロックが落ち、新しくそろうと連鎖します。",
+    teamSize: "1人（個人制作）",
+    role: "制作全般",
+    highlights: "構造体の二次元配列を使い、マスごとの情報を管理してゲームを動かす方法を理解するために制作しました。特に、そろったブロックの判定から消去、列詰め、連鎖までのパズル処理に取り組みました。",
+    technicalNotes: [
+      {
+        title: "構造体の二次元配列で盤面を管理する",
+        problem: "各マスについて、ブロックがあるか、どの種類か、消去や点滅の対象かを扱う必要があります。",
+        approach: "1マス分の情報をBLOCK構造体にまとめ、盤面を行と列の二次元配列g_Block[y][x]で管理しました。",
+        point: "描画やパズルの判定から同じマスの情報を参照できます。消去後にブロックを移動するときは、構造体を代入することでマスの情報をまとめて移せます。",
+        snippets: [
+          {
+            source: "block.h / 25–31行（抜粋）",
+            code: "struct BLOCK\n{\n\tbool Enable;\n\tbool Erase;\n\tbool Blink;\n\tint type;\n};"
+          },
+          {
+            source: "block.cpp / 24–25行（抜粋）",
+            code: "// 二次元配列\nstatic BLOCK g_Block[BLOCK_ROWS][BLOCK_COLS];"
+          }
+        ]
+      },
+      {
+        title: "縦・横・斜めの一致を探し、消去対象に印を付ける",
+        problem: "同じ種類のブロックが並ぶ方向は複数あり、1つのブロックが複数の並びに含まれることもあります。",
+        approach: "横は行ごと、縦は列ごとに同じ種類が続いた数を数えます。斜めは左右それぞれについて、盤面内に収まる3マスを比較します。",
+        point: "一致したマスには消去フラグを立て、全方向の判定が終わってから消去演出へ進めます。ある方向を判定した結果で、別の方向の並びが途中で崩れないようにしました。",
+        snippets: [
+          {
+            source: "block.cpp / 385–405行（抜粋）",
+            code: "// 右下斜めチェック\nfor (int y = 0; y <= BLOCK_ROWS - 3; y++)  // 3個以上取れる範囲でループ\n{\n\tfor (int x = 0; x <= BLOCK_COLS - 3; x++)\n\t{\n\t\tif (g_Block[y][x].Enable == true)\n\t\t{\n\t\t\tint type = g_Block[y][x].type;\n\n\t\t\t// 3つ連続が同じtypeか確認\n\t\t\tif (g_Block[y + 1][x + 1].Enable == true && g_Block[y + 1][x + 1].type == type &&\n\t\t\t\tg_Block[y + 2][x + 2].Enable == true && g_Block[y + 2][x + 2].type == type)\n\t\t\t{\n\t\t\t\t// 消す\n\t\t\t\tg_Block[y][x].Erase = true;\n\t\t\t\tg_Block[y + 1][x + 1].Erase = true;\n\t\t\t\tg_Block[y + 2][x + 2].Erase = true;\n\t\t\t}\n\t\t}\n\t}\n}"
+          }
+        ]
+      },
+      {
+        title: "消去後に列を詰め、そろい直した並びを判定する",
+        problem: "ブロックが消えると列の途中に空きができ、上のブロックを詰めることで新たな並びができます。",
+        approach: "消去対象を点滅させてから、列の下側の空きマスを上にあるブロックで埋めます。その後、更新された盤面でもう一度一致を調べます。",
+        point: "点滅と列詰め後の再判定を状態で切り替え、処理の順序を管理しました。列を詰めた結果で再びそろえば連鎖し、消去対象がなくなると次のピースを出します。",
+        snippets: [
+          {
+            source: "block.cpp / 166–187行（抜粋）",
+            code: "// 状態管理(ステートマシン)\nswitch (g_BlockState)\n{\ncase BLOCK_STATE_IDLE:\n\tbreak;\n\ncase BLOCK_STATE_ERASE_IDLE:\n\tg_StateCount++;\n\tBlockBlinking(g_StateCount);\n\n\tif (g_StateCount > 30)\n\t{\n\t\tBlockStack();\n\t}\n\tbreak;\ncase BLOCK_STATE_STACK_IDLE:\n\tg_StateCount++;\n\tif (g_StateCount > 30)\n\t{\n\t\tBlockErase();\n\t}\n\tbreak;"
+          }
+        ]
+      }
+    ]
   }
 ];

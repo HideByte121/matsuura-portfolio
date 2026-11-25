@@ -18,7 +18,7 @@ const portfolio = { email: '自分のメールアドレス' };
 
 ## 作品の追加・編集
 
-`js/data.js` の `works` 配列を編集します。現在は5GameBowling、RE：TRACE、暖弾Done、PRIMARYを掲載しています。使わない項目は作品ごと削除でき、追加する場合は1件をコピーして一意の `id` を付けてください。
+`js/data.js` の `works` 配列を編集します。作品を追加する場合は1件をコピーして一意の `id` を付けてください。
 
 | 項目 | 内容 |
 | --- | --- |
@@ -27,6 +27,7 @@ const portfolio = { email: '自分のメールアドレス' };
 | `tools` | 使用言語・ツール・技術 |
 | `youtubeId` | YouTube動画の11文字のID。例：`YBtmxOndqW8` |
 | `videoSrc` | サイト内で再生するMP4の相対パス。指定した場合はこの動画を表示 |
+| `videoLabel` | MP4プレイヤーの任意の見出し。例：`プレイ動画` |
 | `thumbnail` | 一覧画像とMP4の再生前画像。空欄の場合はYouTubeのサムネイルを使用 |
 | `images` | 詳細画像のパスの配列。指定した順で縦に表示 |
 | `description` | ゲーム概要・遊び方・制作目的 |
